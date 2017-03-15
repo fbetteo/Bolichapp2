@@ -12,7 +12,9 @@ public class MainMenu extends BaseActivity {
 
     TextView myText;
     TextView myArray;
-    DBbolichapp dbBoliches;
+    //DBbolichapp dbBoliches;
+    DBexterna dbBoliches; //para leer la que ya existe
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +24,11 @@ public class MainMenu extends BaseActivity {
         myText = (TextView) findViewById(R.id.myText);
        //myArray = (TextView) findViewById(R.id.myArray);
 
-        dbBoliches = new DBbolichapp(this, null, null, 1);
+       /* dbBoliches = new DBbolichapp(this, null, null, 1); */
 
         //dbBoliches.truncates();
 
-        dbBoliches.populate();
+      /*  dbBoliches.populate();
 
         dbBoliches.truncate();
 
@@ -34,7 +36,7 @@ public class MainMenu extends BaseActivity {
 
 
 
-        printDatabase();
+        printDatabase(); */
 
 
 
@@ -59,11 +61,11 @@ public class MainMenu extends BaseActivity {
         System.out.println("FRUTAAAA");
     }
 
-    public void printDatabase()
+   /* public void printDatabase()
     {
         String dbstring =  dbBoliches.databaseToString();
         myText.setText(dbstring);
-            }
+            } */
 
 
    public void printArrayPrevio() {
