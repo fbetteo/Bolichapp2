@@ -44,7 +44,7 @@ public class DBbolichapp extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public void populate(){ //cuando quise insertar todo en un solo comando creo que rompio, dicen que depende el sqlite
+    public void populate(){ //cuando quise insertar toddo en un solo comando creo que rompio, dicen que depende el sqlite
                                // vamos uno por uno y a la mierda
 
         SQLiteDatabase db = getWritableDatabase(); // esto llama a la base de datos
@@ -101,7 +101,7 @@ public class DBbolichapp extends SQLiteOpenHelper{
 
     public void populateArray() {
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + DBbolichapp.TABLA_BOLICHES + " WHERE 1";
+        String query = "SELECT * FROM " + TABLA_BOLICHES + " WHERE 1";
 
         Cursor c = db.rawQuery(query, null);
         c.moveToFirst();
@@ -120,6 +120,7 @@ public class DBbolichapp extends SQLiteOpenHelper{
 
 
             }
+            c.moveToNext();
         }
         db.close();
     }

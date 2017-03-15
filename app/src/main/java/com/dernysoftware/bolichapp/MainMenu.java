@@ -40,11 +40,15 @@ public class MainMenu extends BaseActivity {
 
         dbBoliches.populateArray();
 
-        printArrayPrevio();
-
         //printArray();
 
-        printArrayList();
+        dbBoliches.getBoliches();
+
+        printArrayPrevio();
+
+
+
+        //printArrayList();
 
 
 
@@ -70,16 +74,16 @@ public class MainMenu extends BaseActivity {
         }
     }
 
-    /*public void printArray() {
+   /* public void printArray() {
         System.out.println("loop de array");
-        for (Boliche boliche : dbBoliches.boliches) {
+        for (Boliche boliche : dbBoliches.boliches2) {
             myArray.setText(boliche.getName());
         }
     }*/
 
-    public void printArrayList() {
+    /* public void printArrayList() {
         System.out.println(dbBoliches.getBoliches());
-    }
+        } */
 
 
 
