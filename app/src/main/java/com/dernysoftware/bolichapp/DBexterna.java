@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class DBexterna extends SQLiteAssetHelper{
 
-    private static final String DATABASE_NAME = "Bolichapp.db";
+    private static final String DATABASE_NAME = "Bolichapp.db"; //nombre de la base en main/src/assets
     private static final int DATABASE_VERSION = 1;
 
     public DBexterna(Context context) {
@@ -22,30 +22,28 @@ public class DBexterna extends SQLiteAssetHelper{
     }
 
 
-    public ArrayList<Boliche> boliches2 = new ArrayList<Boliche>();
-    private String name2;
-    private String address2;
-    private String facebookPage2;
-    private Boliche.Location location2;
+    public ArrayList<Boliche> bolichesArray = new ArrayList<Boliche>();
+    private String name;
+    private String address;
+    private String facebookPage;
+    private Boliche.Location location;
 
     public void populateArray() {
         SQLiteDatabase db = getReadableDatabase();
-        String query = "SELECT * FROM " + "boliches" + " WHERE 1";
+        String query = "SELECT * FROM " + "boliches" + " WHERE 1"; //boliches es nombre de la tabla, estas cosas deberian generalizarse con alguna variable
 
         Cursor c = db.rawQuery(query, null);
         c.moveToFirst();
 
         while (!c.isAfterLast()) {
             if (c.getString(c.getColumnIndex("Nombre")) != null) {
-                this.name2 = c.getString(c.getColumnIndex("Nombre"));
-                this.address2 = c.getString(c.getColumnIndex("Direccion"));
-                this.facebookPage2 = c.getString(c.getColumnIndex("Link_fb"));
-                this.location2 = Boliche.Location.valueOf(c.getString(c.getColumnIndex("Provincia")));
+                this.name = c.getString(c.getColumnIndex("Nombre"));
+                this.address = c.getString(c.getColumnIndex("Direccion"));
+                this.facebookPage = c.getString(c.getColumnIndex("Link_fb"));
+                this.location = Boliche.Location.valueOf(c.getString(c.getColumnIndex("Provincia")));
 
 
-                boliches2.add(new Boliche(name2, address2, facebookPage2, location2));
-
-                // boliches.add(new Boliche("Boliche A", "Dirección A", "A", Boliche.Location.CAPITAL_FEDERAL));
+                bolichesArray.add(new Boliche(name, address, facebookPage, location));
 
 
             }
@@ -54,11 +52,11 @@ public class DBexterna extends SQLiteAssetHelper{
         db.close();
     }
     public ArrayList<Boliche> getBoliches() {
-        return boliches2;
+        return bolichesArray;
     }
 
     public void setBoliches(ArrayList<Boliche> boliches2) {
-        this.boliches2 = boliches2;
+        this.bolichesArray = boliches2;
     }
 
 
