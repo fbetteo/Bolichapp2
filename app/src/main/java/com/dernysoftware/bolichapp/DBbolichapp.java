@@ -50,7 +50,7 @@ public class DBbolichapp extends SQLiteOpenHelper{
         SQLiteDatabase db = getWritableDatabase(); // esto llama a la base de datos
 
        db.execSQL("INSERT INTO " + TABLA_BOLICHES + " (" + COLUMN_NOMBRE + ", " + COLUMN_DIRECCION + ", " + COLUMN_PROVINCIA + ", " + COLUMN_ACTIVO + ")" + " VALUES ("  //INSERT
-       + "'DADADa', 'calle falsa', 'CAPITAL_FEDERAL', 1 )"  );           // DATA A MANO
+       + "'BRANCH', 'calle falsa', 'CAPITAL_FEDERAL', 1 )"  );           // DATA A MANO
           //     ", ('boliche2','calle refalsa',1);"
         db.execSQL("INSERT INTO " + TABLA_BOLICHES + " (" + COLUMN_NOMBRE + ", " + COLUMN_DIRECCION + ", " + COLUMN_PROVINCIA + ", " + COLUMN_ACTIVO + ")" + " VALUES ("  //INSERT
                        + "'PEPPEXXXXX', 'calle REfalsa', 'BUENOS_AIRES', 1 )"
