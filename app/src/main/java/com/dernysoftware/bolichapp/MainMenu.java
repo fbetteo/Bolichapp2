@@ -11,80 +11,38 @@ import java.util.ArrayList;
 public class MainMenu extends BaseActivity {
 
     TextView myText;
-    TextView myArray;
-    DBbolichapp dbBoliches;
+    DBexterna dbBoliches; //creas un objeto DBexterna
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         printFruta();
+
+        dbBoliches = new DBexterna(this);  //entiendo que aca le asignas la base de datos al objeto
+
         myText = (TextView) findViewById(R.id.myText);
-       //myArray = (TextView) findViewById(R.id.myArray);
 
-        dbBoliches = new DBbolichapp(this, null, null, 1);
+        dbBoliches.populateArray(); //metodo que pone en un array los nombres de los boliches para ver que funcione
 
-        //dbBoliches.truncates();
+        dbBoliches.getBoliches(); //no entiendo por que no funciona este, por ser return tengo que ponerlo en algun textview?
 
-        dbBoliches.populate();
+        printArrayPrevio();  //Funciona y te tira los nombres de los dos boliches de la db leidos del array de populateArray
 
-        dbBoliches.truncate();
-
-        dbBoliches.populate();
-
-
-
-        printDatabase();
-
-
-
-        dbBoliches.populateArray();
-
-        //printArray();
-
-        dbBoliches.getBoliches();
-
-        printArrayPrevio();
-
-
-
-        //printArrayList();
-
-
-
-
-           }
+        }
 
     public void printFruta(){
         System.out.println("FRUTAAAA");
     }
 
-    public void printDatabase()
-    {
-        String dbstring =  dbBoliches.databaseToString();
-        myText.setText(dbstring);
-            }
-
-
    public void printArrayPrevio() {
         System.out.println("loop de arrayprevio");
-        for (Boliche boliche : dbBoliches.boliches2) {
+        for (Boliche boliche : dbBoliches.bolichesArray) {
             System.out.println(boliche.getName());
 
         }
     }
-
-   /* public void printArray() {
-        System.out.println("loop de array");
-        for (Boliche boliche : dbBoliches.boliches2) {
-            myArray.setText(boliche.getName());
-        }
-    }*/
-
-    /* public void printArrayList() {
-        System.out.println(dbBoliches.getBoliches());
-        } */
-
 
 
  }
