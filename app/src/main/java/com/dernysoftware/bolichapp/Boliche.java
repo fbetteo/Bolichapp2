@@ -1,5 +1,19 @@
 package com.dernysoftware.bolichapp;
 
+
+import org.json.JSONObject;
+import android.os.Bundle;
+
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+
+import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  * Created by Ivan on 31/12/2016.
  */
@@ -8,25 +22,27 @@ public class Boliche {
 
     private String name;
     private String address;
-    private String facebookPage;
     private boolean active;
+    private String Id;
+    private JSONObject feedJson;
+    private JSONObject eventsJson;
 
     public enum Location{
         CAPITAL_FEDERAL,
         BUENOS_AIRES
     }
 
-    public Boliche (String name, String address, String facebookPage, Location location, boolean active){
+    public Boliche (String name, String address, String Id, Location location, boolean active){
         this.name = name;
         this.address = address;
-        this.facebookPage = facebookPage;
+        this.Id = Id;
         this.active = active;
     }
 
-    public Boliche (String name, String address, String facebookPage, Location location){
+    public Boliche (String name, String address, String Id, Location location){
         this.name = name;
         this.address = address;
-        this.facebookPage = facebookPage;
+        this.Id = Id;
         this.active = false;
     }
 
@@ -55,12 +71,67 @@ public class Boliche {
         System.out.println(name + " set to " + active);
     }
 
-    public String getFacebookPage() {
-        return facebookPage;
+    public String getId() {
+        return Id;
     }
 
-    public void setFacebookPage(String facebookPage) {
-        this.facebookPage = facebookPage;
+    public void setId(String facebookPage) {
+        this.Id = facebookPage;
+    }
+
+    public JSONObject getFeedJson() {
+        return feedJson;
+    }
+
+    public JSONObject getEventsJson() {
+        return eventsJson;
+    }
+
+
+    public void fetchInfo(){
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String now = df.format(new Date());
+        System.out.println(now);
+
+        AccessToken token = new AccessToken(BaseActivity.ACCESS_TOKEN, BaseActivity.APP_ID, BaseActivity.IVAN_ID,null,null,null,null,null);
+        new GraphRequest(token,
+                "/" +  Id + "/events" + "?since=" + now,
+                null,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        try{
+                            eventsJson = response.getJSONObject();
+                            System.out.println("facebook response: " + response.getJSONObject().toString());
+                        }catch(Exception e){
+                            System.out.println("COULDN'T MANAGE JSON OBJECT: ");
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ).executeAsync();
+
+
+        Bundle params = new Bundle();
+        params.putString("fields", "id,message,created_time");
+
+        new GraphRequest(token,
+                "/" +  Id + "/feed" + "?since=" + now,
+                params,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        try{
+                            feedJson = response.getJSONObject();
+                            System.out.println("facebook response: " + response.getJSONObject().toString());
+                        }catch(Exception e){
+                            System.out.println("COULDN'T MANAGE JSON OBJECT: ");
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ).executeAsync();
+
     }
 
     @Override

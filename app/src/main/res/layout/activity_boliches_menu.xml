@@ -20,13 +20,21 @@
         android:id="@+id/fragment2"
         tools:layout="@layout/options" />
 
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/filter"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/fragment2"
+        android:layout_toEndOf="@+id/fragment2" />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf= "@id/fragment2"
-        android:layout_toRightOf="@id/fragment2"
+        android:layout_toRightOf= "@id/fragment2"
+        android:layout_below="@id/filter"
         android:id="@+id/bolicheListView" />
+
 </RelativeLayout>

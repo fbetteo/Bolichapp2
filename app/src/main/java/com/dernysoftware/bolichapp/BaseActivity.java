@@ -10,6 +10,11 @@ import android.view.View;
 
 public class BaseActivity extends AppCompatActivity {
 
+    public static final String APP_ID = "201658760299309";
+    public static final String SECRET = "83d068912542737c2f51f702ccbd28a4";
+    public static final String IVAN_ID = "10157939063550366";
+    public static final String ACCESS_TOKEN = "201658760299309|83d068912542737c2f51f702ccbd28a4";
+
     public void homeButton(View v){
         startActivity(new Intent(this,MainMenu.class).setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP));
     }

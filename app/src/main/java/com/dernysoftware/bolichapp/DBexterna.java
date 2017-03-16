@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -27,6 +29,9 @@ public class DBexterna extends SQLiteAssetHelper{
     private String address;
     private String facebookPage;
     private Boliche.Location location;
+
+    private ArrayList<JSONObject> feedJSONs = new ArrayList<JSONObject>();
+    private ArrayList<JSONObject> eventsJSONs = new ArrayList<JSONObject>();
 
     public void populateArray() {
         SQLiteDatabase db = getReadableDatabase();
@@ -58,6 +63,53 @@ public class DBexterna extends SQLiteAssetHelper{
     public void setBoliches(ArrayList<Boliche> boliches2) {
         this.bolichesArray = boliches2;
     }
+
+
+    public void fetchInfo(){
+        for(Boliche boliche: bolichesArray){
+            if(boliche.isActive()){
+                boliche.fetchInfo();
+            }
+        }
+    }
+
+    public void getJsons(){
+        for(Boliche boliche: bolichesArray){
+            feedJSONs.clear();
+            eventsJSONs.clear();
+            if(boliche.isActive()){
+                feedJSONs.add(boliche.getFeedJson());
+                eventsJSONs.add(boliche.getEventsJson());
+            }
+        }
+    }
+    public ArrayList<JSONObject> getEventsJSONs() {
+        return eventsJSONs;
+    }
+
+    public ArrayList<JSONObject> getFeedJSONs() {
+        return feedJSONs;
+    }
+
+    // esto es para manejar lo estatico pero chequearlo
+
+    /* private static DBexterna bolicheManager;
+    private DBexterna(){
+    }
+
+    public static BolicheManager getInstance(){
+        if(bolicheManager == null) {
+            bolicheManager = getSync();
+        }
+        return bolicheManager;
+    }
+
+    private static synchronized BolicheManager getSync(){
+        if(bolicheManager == null) {
+            bolicheManager = new BolicheManager();
+        }
+        return bolicheManager;
+    } */
 
 
 
