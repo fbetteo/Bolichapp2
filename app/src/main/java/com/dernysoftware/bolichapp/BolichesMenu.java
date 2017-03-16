@@ -62,5 +62,5 @@ public class BolichesMenu extends BaseActivity {
         });
 
     }
-    }
 }
+

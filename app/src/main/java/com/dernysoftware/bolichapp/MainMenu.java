@@ -7,6 +7,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 import java.util.ArrayList;
 
 public class MainMenu extends BaseActivity {
@@ -33,7 +36,7 @@ public class MainMenu extends BaseActivity {
 
         dbBoliches = new DBexterna(this);  //entiendo que aca le asignas la base de datos al objeto
 
-        myText = (TextView) findViewById(R.id.myText);
+       // myText = (TextView) findViewById(R.id.myText);
 
         dbBoliches.populateArray(); //metodo que pone en un array los nombres de los boliches para ver que funcione
 
