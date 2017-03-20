@@ -18,7 +18,7 @@ public class MainMenu extends BaseActivity {
     private static MainMenu context;
 
     TextView myText;
-    DBexterna dbBoliches; //creas un objeto DBexterna
+    DBexterna dbBoliches; //Declaras objeto DBexterna
 
 
     @Override
@@ -40,7 +40,7 @@ public class MainMenu extends BaseActivity {
 
         dbBoliches.populateArray(); //metodo que pone en un array los nombres de los boliches para ver que funcione
 
-        dbBoliches.getBoliches(); //no entiendo por que no funciona este, por ser return tengo que ponerlo en algun textview?
+        dbBoliches.getBoliches(); //te deuvleve el objetos y tenes que printearlo como string
 
         printArrayPrevio();  //Funciona y te tira los nombres de los dos boliches de la db leidos del array de populateArray
 

@@ -9,5 +9,7 @@ public class ConfigMenu extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config_menu);
+
+        System.out.println("ConfigeRARARA");
     }
 }

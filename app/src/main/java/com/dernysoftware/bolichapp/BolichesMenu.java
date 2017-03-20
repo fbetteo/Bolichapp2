@@ -24,6 +24,8 @@ public class BolichesMenu extends BaseActivity {
         setContentView(R.layout.activity_boliches_menu);
         bolicheManager.populate();
         setList();
+
+        System.out.println("BolicheRARARA");
     }
 
     private void setList(){
