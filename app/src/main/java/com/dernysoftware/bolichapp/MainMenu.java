@@ -18,7 +18,7 @@ public class MainMenu extends BaseActivity {
     private static MainMenu context;
 
     TextView myText;
-    DBexterna dbBoliches; //Declaras objeto DBexterna
+    public static DBexterna dbBoliches; //Declaras objeto DBexterna
 
 
     @Override
