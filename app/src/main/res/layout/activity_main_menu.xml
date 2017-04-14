@@ -20,34 +20,15 @@
         android:layout_alignParentStart="true"
         tools:layout="@layout/options" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/stat_notify_sync"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/refreshButton"
-        android:onClick="update"
-        android:visibility="visible"
-        android:contentDescription="" />
+        android:layout_toRightOf="@+id/fragment"
+        android:layout_toEndOf="@+id/fragment"
+        android:id="@+id/fragmentLayout"></LinearLayout>
 
-    <ScrollView
-        android:id="@+id/scrollBoliches"
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/refreshButton"
-        android:layout_toStartOf="@+id/refreshButton">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/refreshButton"
-            android:layout_toStartOf="@+id/refreshButton"
-            android:id="@+id/scrollLayout"/>
-    </ScrollView>
 </RelativeLayout>

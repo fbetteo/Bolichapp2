@@ -1,65 +1,83 @@
 package com.dernysoftware.bolichapp;
 
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
-import java.util.ArrayList;
+public class MainMenu extends FragmentActivity {
 
-public class MainMenu extends BaseActivity {
-
-    private LinearLayout ll;
-    private static MainMenu context;
-
+    public static final String APP_ID = "201658760299309";
+    public static final String SECRET = "83d068912542737c2f51f702ccbd28a4";
+    public static final String IVAN_ID = "10157939063550366";
+    public static final String ACCESS_TOKEN = "201658760299309|83d068912542737c2f51f702ccbd28a4";
     TextView myText;
+
     public static DBexterna dbBoliches; //Declaras objeto DBexterna
+
+    public FragmentManager fm;
+    public Fragment homeFragment;
+    public Fragment bolichesFragment;
+    public Fragment configFragment;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        printFruta();
+        System.out.println("MainMenu created");
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(getApplication());
-        //bolicheManager = BolicheManager.getInstance();
-        ll = (LinearLayout) findViewById(R.id.scrollLayout);
 
+        homeFragment = new HomeFragment();
+        bolichesFragment = new BolichesFragment();
+        configFragment = new ConfigFragment();
 
-
+        fm = getSupportFragmentManager();
+        fm.beginTransaction().add(R.id.fragmentLayout, homeFragment).commit();
 
         dbBoliches = new DBexterna(this);  //entiendo que aca le asignas la base de datos al objeto
 
-       // myText = (TextView) findViewById(R.id.myText);
-
         dbBoliches.populateArray(); //metodo que pone en un array los nombres de los boliches para ver que funcione
 
-        dbBoliches.getBoliches(); //te deuvleve el objetos y tenes que printearlo como string
+        dbBoliches.getBoliches(); //te devuelve el objeto y tenes que printearlo como string
 
         printArrayPrevio();  //Funciona y te tira los nombres de los dos boliches de la db leidos del array de populateArray
 
         }
 
-    public void printFruta(){
-        System.out.println("FRUTAAAA");
-    }
-
    public void printArrayPrevio() {
         System.out.println("loop de arrayprevio");
         for (Boliche boliche : dbBoliches.bolichesArray) {
             System.out.println(boliche.getName());
-
+            System.out.println(boliche.getId());
         }
     }
 
+    public void homeButton(View v){
+        System.out.println("swapping fragment");
+        fm.beginTransaction().replace(R.id.fragmentLayout, homeFragment).commit();
+    }
 
- }
+    public void bolichesButton(View v){
+        System.out.println("swapping fragment");
+        fm.beginTransaction().replace(R.id.fragmentLayout, bolichesFragment).commit();
+    }
+
+    public void configButton(View v){
+        System.out.println("swapping fragment");
+        fm.beginTransaction().replace(R.id.fragmentLayout, configFragment).commit();
+    }
+
+
+
+}
 
 
 

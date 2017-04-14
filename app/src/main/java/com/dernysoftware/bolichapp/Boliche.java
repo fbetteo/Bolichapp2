@@ -37,13 +37,20 @@ public class Boliche {
         this.address = address;
         this.Id = Id;
         this.active = active;
+        if(active){
+            fetchInfo();
+        }
     }
 
     public Boliche (String name, String address, String Id, Location location){
         this.name = name;
         this.address = address;
         this.Id = Id;
-        this.active = false;
+        this.active = true;
+        if(active){
+            fetchInfo();
+            System.out.println("fetching");
+        }
     }
 
     public String getName() {
@@ -79,21 +86,14 @@ public class Boliche {
         this.Id = facebookPage;
     }
 
-    public JSONObject getFeedJson() {
-        return feedJson;
-    }
-
-    public JSONObject getEventsJson() {
-        return eventsJson;
-    }
-
-
     public void fetchInfo(){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String now = df.format(new Date());
         System.out.println(now);
 
-        AccessToken token = new AccessToken(BaseActivity.ACCESS_TOKEN, BaseActivity.APP_ID, BaseActivity.IVAN_ID,null,null,null,null,null);
+        Id = "17481793457"; //borrar cunado este la base bien
+
+        AccessToken token = new AccessToken(MainMenu.ACCESS_TOKEN, MainMenu.APP_ID, MainMenu.IVAN_ID,null,null,null,null,null);
         new GraphRequest(token,
                 "/" +  Id + "/events" + "?since=" + now,
                 null,
