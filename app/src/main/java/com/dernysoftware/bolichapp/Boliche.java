@@ -1,18 +1,22 @@
 package com.dernysoftware.bolichapp;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import android.os.Bundle;
 
+import com.dernysoftware.bolichapp.Posts.EventPost;
+import com.dernysoftware.bolichapp.Posts.FeedPost;
+import com.dernysoftware.bolichapp.Posts.Post;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 
-import org.json.JSONObject;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 /**
  * Created by Ivan on 31/12/2016.
@@ -24,8 +28,12 @@ public class Boliche {
     private String address;
     private boolean active;
     private String Id;
+    private String feedId;
     private JSONObject feedJson;
     private JSONObject eventsJson;
+    private JSONArray eventDataJson;
+    private JSONArray feedDataJson;
+    private ArrayList<Post>  posts;
 
     public enum Location{
         CAPITAL_FEDERAL,
@@ -92,6 +100,7 @@ public class Boliche {
         System.out.println(now);
 
         Id = "17481793457"; //borrar cunado este la base bien
+        feedId ="17481793457_10154640142753458";
 
         AccessToken token = new AccessToken(MainMenu.ACCESS_TOKEN, MainMenu.APP_ID, MainMenu.IVAN_ID,null,null,null,null,null);
         new GraphRequest(token,
@@ -102,7 +111,8 @@ public class Boliche {
                     public void onCompleted(GraphResponse response) {
                         try{
                             eventsJson = response.getJSONObject();
-                            System.out.println("facebook response: " + response.getJSONObject().toString());
+                            //System.out.println("facebook events response: " + response.getJSONObject().toString());
+                            parseEventJson();
                         }catch(Exception e){
                             System.out.println("COULDN'T MANAGE JSON OBJECT: ");
                             e.printStackTrace();
@@ -115,15 +125,18 @@ public class Boliche {
         Bundle params = new Bundle();
         params.putString("fields", "id,message,created_time");
 
+        System.out.println(df.format(new Date(117,3,9)));
+
         new GraphRequest(token,
-                "/" +  Id + "/feed" + "?since=" + now,
+                "/" +  Id + "/feed" + "?since=" + df.format(new Date(117,3,9)),
                 params,
                 HttpMethod.GET,
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
                         try{
                             feedJson = response.getJSONObject();
-                            System.out.println("facebook response: " + response.getJSONObject().toString());
+                            parseFeedJson();
+                            //System.out.println("facebook feed response: " + response.getJSONObject().toString());
                         }catch(Exception e){
                             System.out.println("COULDN'T MANAGE JSON OBJECT: ");
                             e.printStackTrace();
@@ -133,6 +146,46 @@ public class Boliche {
         ).executeAsync();
 
     }
+
+    private void parseEventJson(){
+        if(eventsJson != null){
+            try {
+                eventDataJson = eventsJson.getJSONArray("data");
+
+                for(int i = 0; i < eventDataJson.length(); i++){
+                    EventPost post = new EventPost();
+                    post.setDescription(eventDataJson.getJSONObject(i).get("description").toString());
+                    post.setName(eventDataJson.getJSONObject(i).get("name").toString());
+                    post.setStart_time(eventDataJson.getJSONObject(i).get("start_time").toString());
+                    posts.add(post);
+                    post.print();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void parseFeedJson(){
+        if(feedJson != null){
+            try {
+                feedDataJson = feedJson.getJSONArray("data");
+
+                for(int i = 0; i < feedDataJson.length(); i++){
+                    if(feedDataJson.getJSONObject(i).get("id").equals(feedId)){
+                        FeedPost post = new FeedPost();
+                        post.setDescription(feedDataJson.getJSONObject(i).get("message").toString());
+                        post.setCreated_time(feedDataJson.getJSONObject(i).get("created_time").toString());
+                        posts.add(post);
+                        post.print();
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     @Override
     public String toString(){

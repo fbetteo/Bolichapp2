@@ -30,6 +30,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ImageButton ib = (ImageButton) v.findViewById(R.id.refreshButton);
         ib.setOnClickListener(this);
 
+
+
         return v;
     }
 

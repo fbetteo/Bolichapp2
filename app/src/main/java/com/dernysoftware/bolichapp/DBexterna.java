@@ -29,7 +29,8 @@ public class DBexterna extends SQLiteAssetHelper{
     private Boliche.Location location;
 
     public void populateArray() {
-        SQLiteDatabase db = getReadableDatabase();
+
+        SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT * FROM " + "boliches" + " WHERE 1"; //boliches es nombre de la tabla, estas cosas deberian generalizarse con alguna variable
 
         Cursor c = db.rawQuery(query, null);
