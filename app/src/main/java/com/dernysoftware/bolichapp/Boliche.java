@@ -27,6 +27,7 @@ public class Boliche {
     private String name;
     private String address;
     private boolean active;
+    private String fb_link;
     private String Id;
     private String feedId;
     private JSONObject feedJson;
@@ -43,10 +44,11 @@ public class Boliche {
         BUENOS_AIRES
     }
 
-    public Boliche (MainMenu mainMenu, String name, String address, String Id, Location location, boolean active){
+    public Boliche (MainMenu mainMenu, String name, String address, String fb_link, Location location, String Id, String feedId, boolean active){
         this.name = name;
         this.address = address;
         this.Id = Id;
+        this.feedId = feedId;
         this.active = active;
         if(active) {
             fetchInfo();
@@ -104,8 +106,8 @@ public class Boliche {
         String now = df.format(new Date());
         System.out.println(now);
 
-        Id = "17481793457"; //borrar cunado este la base bien
-        feedId ="17481793457_10154640142753458";
+       // Id = "17481793457"; //borrar cunado este la base bien
+       // feedId ="17481793457_10154640142753458";
 
         AccessToken token = new AccessToken(MainMenu.ACCESS_TOKEN, MainMenu.APP_ID, MainMenu.IVAN_ID,null,null,null,null,null);
         new GraphRequest(token,

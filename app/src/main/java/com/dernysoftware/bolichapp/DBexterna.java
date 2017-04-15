@@ -29,6 +29,9 @@ public class DBexterna extends SQLiteAssetHelper{
     private String address;
     private String facebookPage;
     private Boliche.Location location;
+    private String id ;
+    private String feedId;
+    private boolean active;
 
     public void populateArray() {
 
@@ -44,15 +47,19 @@ public class DBexterna extends SQLiteAssetHelper{
                 this.address = c.getString(c.getColumnIndex("Direccion"));
                 this.facebookPage = c.getString(c.getColumnIndex("Link_fb"));
                 this.location = Boliche.Location.valueOf(c.getString(c.getColumnIndex("Provincia")));
+                this.id = c.getString((c.getColumnIndex("Id_fb")));
+                this.feedId = c.getString((c.getColumnIndex("feedId")));
+                this.active = c.getInt((c.getColumnIndex("Activo"))) == 1;
 
 
-                bolichesArray.add(new Boliche(mainMenu, name, address, facebookPage, location));
+                bolichesArray.add(new Boliche(mainMenu, name, address, facebookPage, location, id, feedId, active));
 
 
             }
             c.moveToNext();
         }
         db.close();
+        c.close();
     }
     public ArrayList<Boliche> getBoliches() {
         return bolichesArray;
