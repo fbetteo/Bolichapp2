@@ -33,24 +33,28 @@ public class Boliche {
     private JSONObject eventsJson;
     private JSONArray eventDataJson;
     private JSONArray feedDataJson;
-    private ArrayList<Post>  posts;
+    private ArrayList<Post>  posts = new ArrayList<>();
+    private MainMenu mainMenu;
+    private boolean isEventJsonReady;
+    private boolean isFeedJsonReady;
 
     public enum Location{
         CAPITAL_FEDERAL,
         BUENOS_AIRES
     }
 
-    public Boliche (String name, String address, String Id, Location location, boolean active){
+    public Boliche (MainMenu mainMenu, String name, String address, String Id, Location location, boolean active){
         this.name = name;
         this.address = address;
         this.Id = Id;
         this.active = active;
-        if(active){
+        if(active) {
             fetchInfo();
         }
+        this.mainMenu = mainMenu;
     }
 
-    public Boliche (String name, String address, String Id, Location location){
+    public Boliche (MainMenu mainMenu, String name, String address, String Id, Location location){
         this.name = name;
         this.address = address;
         this.Id = Id;
@@ -59,6 +63,7 @@ public class Boliche {
             fetchInfo();
             System.out.println("fetching");
         }
+        this.mainMenu = mainMenu;
     }
 
     public String getName() {
@@ -158,7 +163,11 @@ public class Boliche {
                     post.setName(eventDataJson.getJSONObject(i).get("name").toString());
                     post.setStart_time(eventDataJson.getJSONObject(i).get("start_time").toString());
                     posts.add(post);
-                    post.print();
+                    isEventJsonReady = true;
+                    if(isEventJsonReady && isFeedJsonReady){
+                        mainMenu.jsonReady(posts);
+                    }
+                    //post.print();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -177,7 +186,11 @@ public class Boliche {
                         post.setDescription(feedDataJson.getJSONObject(i).get("message").toString());
                         post.setCreated_time(feedDataJson.getJSONObject(i).get("created_time").toString());
                         posts.add(post);
-                        post.print();
+                        isFeedJsonReady = true;
+                        if(isEventJsonReady && isFeedJsonReady){
+                            mainMenu.jsonReady(posts);
+                        }
+                        //post.print();
                     }
                 }
             } catch (JSONException e) {

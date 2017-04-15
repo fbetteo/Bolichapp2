@@ -7,8 +7,11 @@ import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.TextView;
 
+import com.dernysoftware.bolichapp.Posts.Post;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+
+import java.util.ArrayList;
 
 public class MainMenu extends FragmentActivity {
 
@@ -16,7 +19,6 @@ public class MainMenu extends FragmentActivity {
     public static final String SECRET = "83d068912542737c2f51f702ccbd28a4";
     public static final String IVAN_ID = "10157939063550366";
     public static final String ACCESS_TOKEN = "201658760299309|83d068912542737c2f51f702ccbd28a4";
-    TextView myText;
 
     public static DBexterna dbBoliches; //Declaras objeto DBexterna
 
@@ -24,6 +26,9 @@ public class MainMenu extends FragmentActivity {
     public Fragment homeFragment;
     public Fragment bolichesFragment;
     public Fragment configFragment;
+    public int amountOfBoliches;
+    public int amountOfBolichesReady;
+    ArrayList<Post> posts = new ArrayList<>();
 
 
     @Override
@@ -46,7 +51,7 @@ public class MainMenu extends FragmentActivity {
 
         dbBoliches.populateArray(); //metodo que pone en un array los nombres de los boliches para ver que funcione
 
-        dbBoliches.getBoliches(); //te devuelve el objeto y tenes que printearlo como string
+        amountOfBoliches = dbBoliches.bolichesArray.size();
 
         printArrayPrevio();  //Funciona y te tira los nombres de los dos boliches de la db leidos del array de populateArray
 
@@ -76,7 +81,14 @@ public class MainMenu extends FragmentActivity {
     }
 
 
+    public void jsonReady(ArrayList<Post> posts) {
+        this.posts.addAll(posts);
+        amountOfBolichesReady++;
+        if(amountOfBoliches == amountOfBolichesReady){
+            ((HomeFragment)homeFragment).showBoliches(this.posts);
+        }
 
+    }
 }
 
 

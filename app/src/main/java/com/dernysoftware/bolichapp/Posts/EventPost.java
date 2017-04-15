@@ -24,6 +24,11 @@ public class EventPost extends Post {
         this.start_time = start_time;
     }
 
+    @Override
+    public String toString() {
+        return "EVENT " + name + " at date: " + start_time + "  " + description;
+    }
+
     public void print(){
         System.out.println("EVENT " + name + " at date: " + start_time + "  " + description);
     }

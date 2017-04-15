@@ -16,9 +16,11 @@ public class DBexterna extends SQLiteAssetHelper{
 
     private static final String DATABASE_NAME = "Bolichapp.db"; //nombre de la base en main/src/assets
     private static final int DATABASE_VERSION = 1;
+    private MainMenu mainMenu;
 
     public DBexterna(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        mainMenu = (MainMenu)context;
     }
 
 
@@ -44,7 +46,7 @@ public class DBexterna extends SQLiteAssetHelper{
                 this.location = Boliche.Location.valueOf(c.getString(c.getColumnIndex("Provincia")));
 
 
-                bolichesArray.add(new Boliche(name, address, facebookPage, location));
+                bolichesArray.add(new Boliche(mainMenu, name, address, facebookPage, location));
 
 
             }

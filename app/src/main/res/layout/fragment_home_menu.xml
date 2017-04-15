@@ -24,13 +24,13 @@
         android:contentDescription="" />
 
     <ListView
-        android:id="@+id/scrollBoliches"
+        android:id="@+id/viewBoliches"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/refreshButton"
-        android:layout_toStartOf="@+id/refreshButton">
+        android:layout_toStartOf="@+id/refreshButton"
+        android:fillViewport="true">
 
     </ListView>
 </RelativeLayout>

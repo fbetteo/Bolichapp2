@@ -17,6 +17,11 @@ public class FeedPost extends Post {
 
     private String created_time;
 
+    @Override
+    public String toString() {
+        return "FEED posted at date: " + created_time + " " + description;
+    }
+
     public void print(){
         System.out.println("FEED posted at date: " + created_time + " " + description);
     }
