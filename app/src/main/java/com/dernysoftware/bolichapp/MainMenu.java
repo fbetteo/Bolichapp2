@@ -47,6 +47,8 @@ public class MainMenu extends FragmentActivity {
         fm = getSupportFragmentManager();
         fm.beginTransaction().add(R.id.fragmentLayout, homeFragment).commit();
 
+        this.deleteDatabase("Bolichapp.db"); //Resetea la base de datos cada vez que abris la app, Para DEBUGEAR, QUITAR DE LA FINAL
+
         dbBoliches = new DBexterna(this);  //entiendo que aca le asignas la base de datos al objeto
 
         dbBoliches.populateArray(); //metodo que pone en un array los nombres de los boliches para ver que funcione
@@ -56,6 +58,7 @@ public class MainMenu extends FragmentActivity {
         printArrayPrevio();  //Funciona y te tira los nombres de los dos boliches de la db leidos del array de populateArray
 
         }
+
 
    public void printArrayPrevio() {
         System.out.println("loop de arrayprevio");
