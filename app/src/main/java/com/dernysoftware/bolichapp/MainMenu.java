@@ -26,7 +26,7 @@ public class MainMenu extends FragmentActivity {
     public Fragment homeFragment;
     public Fragment bolichesFragment;
     public Fragment configFragment;
-    public int amountOfBoliches;
+    public int amountOfBolichesActive;
     public int amountOfBolichesReady;
     ArrayList<Post> posts = new ArrayList<>();
 
@@ -53,7 +53,7 @@ public class MainMenu extends FragmentActivity {
 
         dbBoliches.populateArray(); //metodo que pone en un array los nombres de los boliches para ver que funcione
 
-        amountOfBoliches = dbBoliches.bolichesArray.size();
+        amountOfBolichesActive = dbBoliches.getBolichesActive();
 
         printArrayPrevio();  //Funciona y te tira los nombres de los dos boliches de la db leidos del array de populateArray
 
@@ -87,7 +87,7 @@ public class MainMenu extends FragmentActivity {
     public void jsonReady(ArrayList<Post> posts) {
         this.posts.addAll(posts);
         amountOfBolichesReady++;
-        if(amountOfBoliches == amountOfBolichesReady){
+        if(amountOfBolichesActive == amountOfBolichesReady){
             ((HomeFragment)homeFragment).showBoliches(this.posts);
         }
 

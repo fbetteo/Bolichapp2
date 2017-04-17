@@ -52,6 +52,7 @@ public class Boliche {
         this.active = active;
         if(active) {
             fetchInfo();
+            System.out.println("fetching");
         }
         this.mainMenu = mainMenu;
     }

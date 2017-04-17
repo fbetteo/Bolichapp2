@@ -65,6 +65,12 @@ public class DBexterna extends SQLiteAssetHelper{
         return bolichesArray;
     }
 
+    public int getBolichesActive() {
+        int amountActive = 0;
+        for (Boliche boliche : bolichesArray) if (boliche.isActive()) amountActive++ ;
+        return amountActive;
+    }
+
     public void setBoliches(ArrayList<Boliche> boliches2) {
         this.bolichesArray = boliches2;
     }

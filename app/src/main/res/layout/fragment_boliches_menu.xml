@@ -16,12 +16,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" />
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/boliche_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@id/filter"
-        android:id="@+id/bolicheListView" />
+        android:layout_below="@+id/filter"
+        android:padding="4dp"
+        />
 
 </RelativeLayout>
